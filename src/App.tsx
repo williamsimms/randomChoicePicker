@@ -10,15 +10,43 @@ const App = () => {
 
   const [textArea, setTextArea] = useState('')
   const [tags, setTags] = useState([])
-  const [chosenTag, setChosenTag] = useState(null)
+
+  const pickRandomTag = () => {
+    const tags = Array.from(document.querySelectorAll('.tag'))
+    return tags[Math.floor(Math.random() * tags.length)]
+  }
+
+  const highlightTag = (tag: any) => {
+    tag.classList.add('highlight')
+  }
+
+  const unHighlightTag = (tag: any) => {
+    tag.classList.remove('highlight')
+  }
 
   const pickTag = () => {
-    const tags = Array.from(document.querySelectorAll('.tag'))
+    const times = 30
 
-    const tag = tags[Math.floor(Math.random() * (tags.length + 1))]
+    const interval = setInterval(() => {
+      const tags = Array.from(document.querySelectorAll('.tag'))
+      const tag = tags[Math.floor(Math.random() * tags.length)]
 
-    console.log(Math.random() * (tags.length + 1))
-    console.log(tag)
+      tag.classList.add('highlight')
+
+      setTimeout(() => {
+        tag.classList.remove('highlight')
+      }, 100)
+    }, 100)
+
+    setTimeout(() => {
+      clearInterval(interval)
+
+      setTimeout(() => {
+        const tags = Array.from(document.querySelectorAll('.tag'))
+        const tag: any = tags[Math.floor(Math.random() * tags.length)]
+        tag.classList.add('highlight')
+      }, 100)
+    }, times * 100)
   }
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
