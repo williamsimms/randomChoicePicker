@@ -28,13 +28,12 @@ const App = () => {
     const times = 30
 
     const interval = setInterval(() => {
-      const tags = Array.from(document.querySelectorAll('.tag'))
-      const tag = tags[Math.floor(Math.random() * tags.length)]
+      const tag = pickRandomTag()
 
-      tag.classList.add('highlight')
+      highlightTag(tag)
 
       setTimeout(() => {
-        tag.classList.remove('highlight')
+        unHighlightTag(tag)
       }, 100)
     }, 100)
 
@@ -42,9 +41,8 @@ const App = () => {
       clearInterval(interval)
 
       setTimeout(() => {
-        const tags = Array.from(document.querySelectorAll('.tag'))
-        const tag: any = tags[Math.floor(Math.random() * tags.length)]
-        tag.classList.add('highlight')
+        const tag = pickRandomTag()
+        highlightTag(tag)
       }, 100)
     }, times * 100)
   }
