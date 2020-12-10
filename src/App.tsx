@@ -10,26 +10,35 @@ const App = () => {
 
   const [textArea, setTextArea] = useState('')
   const [tags, setTags] = useState([])
+  const [chosenTag, setChosenTag] = useState(null)
 
-  const onKeyUp = (e: any) => {
-    if (e.keyCode === 13) {
-      const arr: any = textArea
-        .trim()
-        .split(',')
-        .map((tag) => {
-          return tag.trim()
-        })
+  const pickTag = () => {
+    const tags = Array.from(document.querySelectorAll('.tag'))
 
-      setTags(arr)
-      setTextArea('')
-    }
+    const tag = tags[Math.floor(Math.random() * (tags.length + 1))]
+
+    console.log(Math.random() * (tags.length + 1))
+    console.log(tag)
   }
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTextArea(e.target.value)
   }
 
-  const pickTag = () => {}
+  const onKeyUp = (e: any) => {
+    if (e.keyCode === 13) {
+      const arr: any = textArea
+        .split(',')
+        .filter((tag) => tag.trim() !== '')
+        .map((tag) => {
+          return tag.trim()
+        })
+
+      setTags(arr)
+      pickTag()
+      setTextArea('')
+    }
+  }
 
   return (
     <div className='app'>
